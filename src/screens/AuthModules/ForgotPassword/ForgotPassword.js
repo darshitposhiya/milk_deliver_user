@@ -41,7 +41,7 @@ const ForgotPassword = () => {
                             marginTop: vs(20)
                         }} />
 
-                    <Text style={{ marginTop: vs(10), alignSelf: 'center', fontSize: fs(18), fontFamily: fonts.regular, color: colors.black }}>Enter Your email below and  we will send you a reset email.</Text>
+                    <Text style={{ marginTop: vs(10), alignSelf: 'center', fontSize: fs(18), fontFamily: fonts.regular, color: colors.black,textAlign:'center' }}>Enter Your email below and  we will send you a reset email.</Text>
 
                     <AnimatedInput
                         placeholder={'Your Email'}

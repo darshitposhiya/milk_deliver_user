@@ -31,7 +31,7 @@ const SignIn = () => {
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ marginHorizontal: hs(15) }}>
+                <View style={{ marginHorizontal: hs(15),marginBottom:vs(20) }}>
 
                     <Image source={images.app_logo}
                         style={{
@@ -96,7 +96,7 @@ const SignIn = () => {
                     </View>
 
                     <Btn title="Continue with Google"
-                        btnStyle={{ marginTop: vs(20), backgroundColor: 'red', justifyContent: 'flex-start' }}
+                        btnStyle={{ marginTop: vs(30), backgroundColor: 'red', justifyContent: 'flex-start' }}
                         leftIcon={() => (
                             <>
                                 <Image source={images.google_icon} style={{ height: vs(35), width: hs(35), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />

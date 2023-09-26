@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet,Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { fonts } from '../assets/fonts';
 import { colors } from '../assets/colors/colors';
 import { fs, vs } from '../utility/ResponsiveStyle';
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     btnlabel: {
         fontFamily: fonts.bold,
         color: colors.white,
-        fontSize: fs(22),
+        fontSize: fs(20),
     }
 });
 

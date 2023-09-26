@@ -25,7 +25,7 @@ const LoginOption = () => {
                             marginTop: vs(30),
                         }} />
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: screenWidth * 0.60, alignSelf: 'center', marginTop: vs(15) }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: screenWidth * 0.60, alignSelf: 'center', marginTop: vs(10) }}>
                         <View style={{ width: screenWidth * 0.25, opacity: 0.5, borderWidth: 1, borderColor: colors.Gray_Border }} />
                         <View style={{ width: 10, height: 10, backgroundColor: colors.Gray_Border, transform: [{ rotate: '140deg' }] }} />
                         <View style={{ width: screenWidth * 0.25, opacity: 0.5, borderWidth: 1, borderColor: colors.Gray_Border }} />
@@ -33,19 +33,19 @@ const LoginOption = () => {
 
                     <Btn onPress={() => navigation.navigate('CreateAccount')}
                         title="Create an account"
-                        btnStyle={{ marginTop: vs(25) }} />
+                        btnStyle={{ marginTop: vs(30) }} />
 
                     <Btn title="Sign In" onPress={()=>navigation.navigate('SignIn')}
                         btnStyle={{ marginTop: vs(10), backgroundColor: colors.Light_Blue }} />
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: vs(40),width:'100%' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: vs(50),width:'100%' }}>
                         <View style={{ width: '33%', opacity: 0.5, borderWidth: 1, borderColor: colors.Gray_Border }} />
                         <Text style={{ color: colors.Gray_text, fontFamily: fonts.regular }}>Or sign in with</Text>
                         <View style={{ width: '33%', opacity: 0.5, borderWidth: 1, borderColor: colors.Gray_Border }} />
                     </View>
 
                     <Btn title="Continue with Google"
-                        btnStyle={{ marginTop: vs(20), backgroundColor: 'red', justifyContent: 'flex-start' }}
+                        btnStyle={{ marginTop: vs(30), backgroundColor: 'red', justifyContent: 'flex-start' }}
                         leftIcon={() => (
                             <>
                                 <Image source={images.google_icon} style={{ height: vs(35), width: hs(35), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
