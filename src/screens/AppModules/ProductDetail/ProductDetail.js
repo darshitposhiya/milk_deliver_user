@@ -17,7 +17,7 @@ const ProductDetail = () => {
             <Header heading="Back"
                 onPress={() => navigation.goBack()}
                 rightIcon={() => (
-                    <Pressable>
+                    <Pressable onPress={() => navigation.navigate('SearchScreen')}>
                         <Image source={images.search}
                             style={{ height: vs(20), width: hs(20), resizeMode: 'contain', tintColor: colors.white }} />
                     </Pressable>
@@ -46,12 +46,12 @@ const ProductDetail = () => {
 
                 <View style={{ marginHorizontal: hs(15) }}>
                     <Text style={{ marginTop: vs(15), fontSize: fs(18), color: colors.black, fontFamily: fonts.bold, fontWeight: '700' }}>Description</Text>
-                    <Text style={{ marginTop: vs(5), fontSize: fs(16), color: colors.Gray_text, fontFamily: fonts.regular, textAlign: 'justify' }}>it is often frustaring to attempt to plan meals that are designed for one.Despite this fact, we are seeing more and more recipe books and internet websites that are dedicated to the act of coocking for one.</Text>
+                    <Text style={{ marginTop: vs(5), fontSize: fs(14), color: colors.Gray_text, fontFamily: fonts.regular, textAlign: 'justify' }}>it is often frustaring to attempt to plan meals that are designed for one.Despite this fact, we are seeing more and more recipe books and internet websites that are dedicated to the act of coocking for one.</Text>
                 </View>
 
                 <View style={{ marginHorizontal: hs(15) }}>
-                    <Text style={{ marginTop: vs(15), fontSize: fs(20), color: colors.Light_Blue, fontFamily: fonts.bold, fontWeight: '700' }}>The Fusion</Text>
-                    <Text style={{ marginTop: vs(5), fontSize: fs(16), color: colors.Gray_text, fontFamily: fonts.regular, textAlign: 'justify' }}>963 Madyson Drive Suite 679</Text>
+                    <Text style={{ marginTop: vs(15), fontSize: fs(18), color: colors.Light_Blue, fontFamily: fonts.bold, fontWeight: '700' }}>The Fusion</Text>
+                    <Text style={{ marginTop: vs(5), fontSize: fs(14), color: colors.Gray_text, fontFamily: fonts.regular, textAlign: 'justify' }}>963 Madyson Drive Suite 679</Text>
                     <View style={{ flexDirection: 'row', marginTop: vs(5), alignItems: 'center' }}>
                         <Image source={images.yellowStar} style={{ height: vs(15), width: hs(15), resizeMode: 'contain', }} />
                         <Image source={images.yellowStar} style={{ height: vs(15), width: hs(15), resizeMode: 'contain', marginLeft: hs(5) }} />
@@ -83,7 +83,7 @@ const ProductDetail = () => {
                     </View>
 
                     <View style={{ marginTop: vs(10), marginHorizontal: hs(45) }}>
-                        <Text style={{ fontSize: fs(16), color: colors.black, fontFamily: fonts.regular, textAlign: 'justify' }}>So we needed up ordering the deep fired salmon roll with Chaines hot musterd and wasabi noodles with</Text>
+                        <Text style={{ fontSize: fs(14), color: colors.black, fontFamily: fonts.regular, textAlign: 'justify' }}>So we needed up ordering the deep fired salmon roll with Chaines hot musterd and wasabi noodles with</Text>
                     </View>
                 </View>
 
@@ -109,7 +109,7 @@ const ProductDetail = () => {
                     </View>
 
                     <View style={{ marginTop: vs(10), marginHorizontal: hs(45) }}>
-                        <Text style={{ fontSize: fs(16), color: colors.black, fontFamily: fonts.regular, textAlign: 'justify' }}>So we needed up ordering the deep fired salmon roll with Chaines hot musterd and wasabi noodles with</Text>
+                        <Text style={{ fontSize: fs(14), color: colors.black, fontFamily: fonts.regular, textAlign: 'justify' }}>So we needed up ordering the deep fired salmon roll with Chaines hot musterd and wasabi noodles with</Text>
                     </View>
                 </View>
 
@@ -122,11 +122,12 @@ const ProductDetail = () => {
                         onPress={() => navigation.navigate('Subscribe')}
                         title="Subscribe@ $25"
                         btnStyle={{ width: '49%', backgroundColor: colors.white, borderWidth: 1, borderColor: colors.Light_Blue }}
-                        btnTextStyle={{ color: colors.Light_Blue }}
+                        btnTextStyle={{ color: colors.Light_Blue, fontSize: fs(16) }}
                     />
-                    <Btn
+                    <Btn onPress={() => navigation.navigate('Cart')}
                         title="Buy Once"
                         btnStyle={{ width: '49%', backgroundColor: colors.Light_Blue }}
+                        btnTextStyle={{ color: colors.white, fontSize: fs(16) }}
                     />
                 </View>
             </AuthFooter>

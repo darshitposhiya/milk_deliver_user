@@ -9,28 +9,30 @@ const styles = StyleSheet.create({
     },
     introScreenImg: {
         width: "100%",
-        height: screenHeight * 0.55,
+        height: screenHeight * 0.60,
         resizeMode: 'stretch'
     },
     bottom_view: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 60,
+        marginBottom: 65,
         marginHorizontal: 15
     },
     into_title: {
         color: colors.black,
         fontFamily: fonts.bold,
-        fontSize: fs(24),
+        fontWeight: '700',
+        fontSize: fs(22),
         textAlign: 'center',
         alignSelf: 'center'
     },
     lorem_text: {
         color: colors.black,
-        fontSize: fs(16),
+        fontSize: fs(14),
         textAlign: 'center',
-        fontFamily: fonts.regular
+        fontFamily: fonts.regular,
+        marginTop: vs(15)
     },
     Appintro_BottomView: {
         width: '95%',
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     },
     Inline_dots: {
         position: 'absolute',
-        bottom: vs(25),
+        bottom: vs(28),
         flexDirection: 'row',
     }
 

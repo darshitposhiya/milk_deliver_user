@@ -43,14 +43,16 @@ export const product_data = [
         productName: "So good milk",
         productImage: images.product1,
         productPrice:"$25.00",
-        liked: true
+        liked: true,
+        category:"Milk"
     },
     {
         id: "p2",
         productName: "Amul cool milk",
         productImage: images.product2,
         productPrice:"$30.00",
-        liked: false
+        liked: false,
+        category:"Milk"
     },
     {
         id: "p3",
@@ -65,5 +67,45 @@ export const product_data = [
         productImage: images.product4,
         productPrice:"$90.00",
         liked: false
+    },
+]
+
+export const completeorder_data = [
+    {
+        id: "p1",
+        productName: "So good milk",
+        productImage: images.product1,
+        productPrice:"$25.00",
+        liked: true,
+        category:"Milk",
+        quantity:2
+    },
+    {
+        id: "p2",
+        productName: "Amul cool milk",
+        productImage: images.product2,
+        productPrice:"$30.00",
+        liked: false,
+        category:"Milk",
+        quantity:1
+    },
+]
+
+export const pendingorder_data = [
+    {
+        id: "p3",
+        productName: "Homogenized milk",
+        productImage: images.product3,
+        productPrice:"$20.00",
+        liked: false,
+        quantity:1
+    },
+    {
+        id: "p4",
+        productName: "Sweet milk",
+        productImage: images.product4,
+        productPrice:"$90.00",
+        liked: false,
+        quantity:2
     },
 ]

@@ -16,7 +16,7 @@ const Intro2 = () => {
                 </Text>
 
                 <View>
-                    <Text style={[styles.lorem_text, { marginTop: vs(15) }]}>Discover service near you lorem ipsum dolor is amet near you lorem.</Text>
+                    <Text style={styles.lorem_text}>Discover service near you lorem ipsum dolor <Text>is amet near you lorem.</Text></Text>
                 </View>
             </View>
         </>

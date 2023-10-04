@@ -39,7 +39,7 @@ const Verification = () => {
             <KeyboardAwareScrollView>
                 <View style={{ marginHorizontal: hs(15) }}>
 
-                    <Text style={{ marginTop: vs(40), alignSelf: 'center', color: colors.Gray_text, fontSize: fs(20), fontFamily: fonts.regular }}>
+                    <Text style={{ marginTop: vs(40), alignSelf: 'center', color: colors.Gray_text, fontSize: fs(18), fontFamily: fonts.regular }}>
                         Check your email for  the otp
                     </Text>
 
@@ -64,10 +64,10 @@ const Verification = () => {
                         />
                     </View>
 
-                    <Text style={{ marginTop: vs(30), alignSelf: 'center', color: colors.Gray_text, fontSize: fs(18), fontFamily: fonts.regular }}>Didn't receive a verification code?</Text>
+                    <Text style={{ marginTop: vs(30), alignSelf: 'center', color: colors.Gray_text, fontSize: fs(16), fontFamily: fonts.regular }}>Didn't receive a verification code?</Text>
 
                     <Pressable style={{ marginTop: vs(5), alignSelf: 'center' }}>
-                        <Text style={{ alignSelf: 'center', color: colors.Light_Blue, fontFamily: fonts.bold, fontSize: fs(20), fontWeight: '700' }}>Resend the code</Text>
+                        <Text style={{ alignSelf: 'center', color: colors.Light_Blue, fontFamily: fonts.bold, fontSize: fs(16), fontWeight: '700' }}>Resend the code</Text>
                     </Pressable>
 
                     <Btn title="Verify" btnStyle={{ marginTop: vs(30) }} />

@@ -55,7 +55,7 @@ const ResetPassword = () => {
                         }}
                         autoCapitalize='none'
                         height={52}
-                        mpContainer={{ mt: 20 }}
+                        mpContainer={{ mt: 25 }}
                         mpInput={{ ph: 10 }}
                         inputStyle={{ color: colors.black }}
                         textSize={14}

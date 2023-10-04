@@ -10,6 +10,7 @@ import Search from '../screens/AppModules/Search/Search';
 import Favorites from '../screens/AppModules/Favorites/Favorites';
 import Profile from '../screens/AppModules/Profile/Profile';
 import { fs, hs, vs } from '../utility/ResponsiveStyle';
+import Cart from '../screens/AppModules/Cart/Cart';
 
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
@@ -111,18 +112,21 @@ const Tabs = () => {
                     tabBarLabel: 'Search'
                 })}
             />
-            {/* <Tab.Screen
-                name="Send"
-                component={SendMoney}
+            <Tab.Screen
+                name="Cart"
+                component={Cart}
                 options={({ navigation }) => ({
                     tabBarIcon: ({ color, focused }) => {
-                        return <Img
-                            imgSrc={images.footer.send_tab}
-                            width={40}
-                            height={40}
-                            imgStyle={{
+                        return <Image
+                            source={images.footer.cart}
+                            style={{
+                                width: vs(50),
+                                height: hs(50),
                                 resizeMode: 'contain',
-                                marginBottom:vs(5)
+                                marginBottom: vs(30),
+                                borderWidth: 5,
+                                borderColor: 'white',
+                                borderRadius: 100
                             }}
                         />
                     },
@@ -132,9 +136,9 @@ const Tabs = () => {
                         backgroundColor: colors.LightPurple
                     },
                     headerShadowVisible: false,
-                    tabBarLabel: 'Send'
+                    tabBarLabel: ''
                 })}
-            /> */}
+            />
             <Tab.Screen
                 name="Favorites"
                 component={Favorites}

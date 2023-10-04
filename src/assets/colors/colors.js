@@ -8,5 +8,6 @@ export const colors = {
     Gray_Border: "#CCCCCC",
     Gray_text: "#808080",
     black:"#000",
-    white:"#FFFFFF"
+    white:"#FFFFFF",
+    Light_Gray:'#e6e7e7'
 }

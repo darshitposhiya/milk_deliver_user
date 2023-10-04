@@ -99,7 +99,7 @@ const SignIn = () => {
                         btnStyle={{ marginTop: vs(30), backgroundColor: 'red', justifyContent: 'flex-start' }}
                         leftIcon={() => (
                             <>
-                                <Image source={images.google_icon} style={{ height: vs(35), width: hs(35), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
+                                <Image source={images.google_icon} style={{ height: vs(30), width: hs(30), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
                             </>
                         )} />
 
@@ -107,7 +107,7 @@ const SignIn = () => {
                         btnStyle={{ marginTop: vs(10), backgroundColor: colors.Nevy_Blue, justifyContent: 'flex-start' }}
                         leftIcon={() => (
                             <>
-                                <Image source={images.facebook_icon} style={{ height: vs(35), width: hs(35), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
+                                <Image source={images.facebook_icon} style={{ height: vs(30), width: hs(30), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
                             </>
                         )} />
 
@@ -115,7 +115,7 @@ const SignIn = () => {
                         btnStyle={{ marginTop: vs(10), backgroundColor: 'black', justifyContent: 'flex-start' }}
                         leftIcon={() => (
                             <>
-                                <Image source={images.apple_icon} style={{ height: vs(35), width: hs(35), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
+                                <Image source={images.apple_icon} style={{ height: vs(30), width: hs(30), marginHorizontal: hs(15), resizeMode: 'contain', alignItems: 'flex-start' }} />
                             </>
                         )} />
 

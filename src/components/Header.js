@@ -11,7 +11,9 @@ const Header = (
         heading,
         onPress,
         rightIcon,
-        headerStyle
+        headerStyle,
+        headerTextStyle,
+        searchBar,
     }
 ) => {
 
@@ -19,18 +21,19 @@ const Header = (
 
     return (
         <View style={{ width: '100%', backgroundColor: colors.Primary_Blue, paddingTop: statusBarHeight }}>
-            <View style={{...styles.headerStyle,...headerStyle}}>
+            <View style={{ ...styles.headerStyle, ...headerStyle }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Pressable onPress={onPress}>
                         <Image source={images.back_icon}
                             style={{ height: vs(20), width: hs(20), resizeMode: 'contain' }}
                         />
                     </Pressable>
-                    <Text style={{ fontSize: fs(20), color: colors.white, fontFamily: fonts.bold, marginHorizontal: hs(10) }}>{heading}</Text>
+                    <Text style={{ ...styles.headerTextStyle, ...headerTextStyle }}>{heading}</Text>
                 </View>
 
                 {rightIcon && rightIcon()}
             </View>
+            {searchBar && searchBar()}
         </View>
     );
 };
@@ -42,6 +45,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
+    },
+    headerTextStyle: {
+        fontSize: fs(20),
+        color: colors.white,
+        fontFamily: fonts.bold,
+        marginHorizontal: hs(10)
     }
 
 });

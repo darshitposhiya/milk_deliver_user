@@ -34,7 +34,7 @@ const Home = () => {
             select={select == item}
         />
     }
-    console.log(select, 'product')
+   
     const renderHeader = () => {
         return (
             <View style={{ width: '100%', paddingTop: statusBarHeight, backgroundColor: colors.Primary_Blue }}>
@@ -61,7 +61,8 @@ const Home = () => {
                             }} />
                     </Pressable>
                 </View>
-                <View style={{
+                <Pressable onPress={() => navigation.navigate('SearchScreen')}
+                style={{
                     marginHorizontal: hs(15),
                     marginVertical: vs(15),
                     backgroundColor: colors.white,
@@ -69,9 +70,13 @@ const Home = () => {
                 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Image source={images.search} style={{ marginHorizontal: hs(10), height: vs(20), width: hs(20), resizeMode: 'contain' }} />
-                        <TextInput placeholder='Search for milk products' placeholderTextColor={colors.Gray_text} style={{ flex: 1 }} />
+                        <TextInput placeholder='Search for milk products' 
+                        placeholderTextColor={colors.Gray_text} 
+                        style={{ flex: 1 }} 
+                        editable={false}
+                        />
                     </View>
-                </View>
+                </Pressable>
             </View>
 
         )
