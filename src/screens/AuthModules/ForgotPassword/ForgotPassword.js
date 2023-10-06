@@ -9,10 +9,15 @@ import { colors } from '../../../assets/colors/colors';
 import { fonts } from '../../../assets/fonts';
 import AnimatedInput from '../../../components/AnimatedInput';
 import Btn from '../../../components/Btn';
+import { Formik } from 'formik';
+import { forgotPasswordValidate } from '../../../utility/Validations';
+import { useDispatch } from 'react-redux';
+import { forgotPasswordApi } from '../../../features/authSlice';
 
 const ForgotPassword = () => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const renderHeader = () => {
         return (
             <Header heading="Forgot Password" onPress={() => navigation.goBack()} />
@@ -26,6 +31,20 @@ const ForgotPassword = () => {
             }
         });
     }, []);
+
+    const forgotPasswordHandler = async (values) => {
+        let formData = new FormData();
+        formData.append('email', values.email);
+
+        const response = await dispatch(forgotPasswordApi({ data: formData })).unwrap();
+        console.log("responseOfForgotPassword", response);
+
+        if (response?.status == "Success") {
+            navigation.navigate("ResetPassword",{
+                email: values.email
+            });
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -41,30 +60,45 @@ const ForgotPassword = () => {
                             marginTop: vs(20)
                         }} />
 
-                    <Text style={{ marginTop: vs(10), alignSelf: 'center', fontSize: fs(16), fontFamily: fonts.regular, color: colors.black,textAlign:'center' }}>Enter Your email below and  we will send you a reset email.</Text>
+                    <Text style={{ marginTop: vs(10), alignSelf: 'center', fontSize: fs(16), fontFamily: fonts.regular, color: colors.black, textAlign: 'center' }}>Enter Your email below and  we will send you a reset email.</Text>
 
-                    <AnimatedInput
-                        placeholder={'Your Email'}
-                        containerStyle={{
-                            backgroundColor: "white",
-                            borderColor: colors.Gray_Border,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            width: '100%'
-                        }}
-                        keyboardType={'email-address'}
-                        autoCapitalize='none'
-                        height={52}
-                        mpContainer={{ mt: 20 }}
-                        mpInput={{ ph: 10 }}
-                        inputStyle={{ color: colors.black }}
-                        textSize={14}
-                    />
+                    <Formik
+                        initialValues={forgotPasswordValidate.initialState}
+                        validationSchema={forgotPasswordValidate.schema}
+                        onSubmit={(values) => forgotPasswordHandler(values)}
+                    >
+                        {({ values, setFieldTouched, handleChange, handleSubmit, errors, touched }) => (
+                            <>
+                                <AnimatedInput
+                                    placeholder={'Email'}
+                                    value={values.email}
+                                    onChangeText={handleChange("email")}
+                                    onBlur={() => setFieldTouched('email')}
+                                    touched={touched.email}
+                                    errors={errors.email}
+                                    inputStyle={{ color: colors.black }}
+                                    containerStyle={{
+                                        backgroundColor: "white",
+                                        borderColor: touched.email && errors.email ? 'red' : colors.Gray_Border,
+                                        borderWidth: 1,
+                                        borderRadius: 4,
+                                        width: '100%'
+                                    }}
+                                    keyboardType='email-address'
+                                    autoCapitalize='none'
+                                    height={52}
+                                    mpContainer={{ mt: 20 }}
+                                    mpInput={{ ph: 10 }}
+                                    textSize={14}
+                                />
 
-                    <Btn onPress={()=>navigation.navigate('ResetPassword')}
-                     title="Submit" 
-                     btnStyle={{marginTop: vs(25)}}
-                     />
+                                <Btn onPress={handleSubmit}
+                                    title="Submit"
+                                    btnStyle={{ marginTop: vs(25) }}
+                                />
+                            </>
+                        )}
+                    </Formik>
 
                 </View>
             </KeyboardAwareScrollView>

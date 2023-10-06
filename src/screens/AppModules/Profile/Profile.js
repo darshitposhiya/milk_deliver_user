@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, Image, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { images } from '../../../assets/images';
 import { fonts } from '../../../assets/fonts';
@@ -7,9 +7,12 @@ import { getStatusBarHeight } from '../../../utility/Globals';
 import { hs, vs, fs } from '../../../utility/ResponsiveStyle';
 import { colors } from '../../../assets/colors/colors';
 import { AuthStack } from '../../../navigator/NavActions';
+import { useDispatch } from 'react-redux';
+import { getValues, logOutUser } from '../../../features/whiteLists';
 const Profile = () => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const statusBarHeight = getStatusBarHeight();
     const renderHeader = () => {
         return (
@@ -50,6 +53,26 @@ const Profile = () => {
             }
         });
     }, []);
+
+    const Logout = async () => {
+        Alert.alert(
+            "Njoo sender",
+            "Are you sure want to logout ?",
+            [
+                {
+                    text: "No",
+                    style: "cancel"
+                },
+                {
+                    text: "Yes", onPress: () => {
+                        dispatch(logOutUser());
+                        dispatch(getValues(false));
+                        navigation.dispatch(AuthStack);
+                    }
+                }
+            ]
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -168,7 +191,7 @@ const Profile = () => {
 
                     <View style={{ borderWidth: 1, borderColor: colors.Gray_Border, opacity: 0.5 }} />
 
-                    <Pressable onPress={() => navigation.dispatch(AuthStack)}
+                    <Pressable onPress={Logout}
                         style={{ paddingHorizontal: hs(10), paddingVertical: vs(15), flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={images.logout}

@@ -10,11 +10,16 @@ import SignIn from '../screens/AuthModules/SignIn/SignIn';
 import ForgotPassword from '../screens/AuthModules/ForgotPassword/ForgotPassword';
 import ResetPassword from '../screens/AuthModules/ResetPassword/ResetPassword';
 import Country from '../screens/AuthModules/Country/Country';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = () => {
+
+    const { flag } = useSelector((state) => state.whiteLists);
+
     return (
         <Stack.Navigator
+        initialRouteName={flag == false ? "SignIn" : "AppIntro"}
             screenOptions={{
                 animation: 'slide_from_right',
                 headerBackTitleVisible: false,

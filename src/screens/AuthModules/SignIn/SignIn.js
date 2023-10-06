@@ -11,10 +11,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Btn from '../../../components/Btn';
 import { fonts } from '../../../assets/fonts';
 import { AppStack } from '../../../navigator/NavActions';
+import { Formik } from 'formik';
+import { loginValidate } from '../../../utility/Validations';
+import { getValues, saveUser } from '../../../features/whiteLists';
+import { useDispatch } from 'react-redux';
+import { SigninApi } from '../../../features/authSlice';
+import { fcmToken } from '../../../utility/Globals';
 
 const SignIn = () => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const renderHeader = () => {
         return (
@@ -29,6 +36,23 @@ const SignIn = () => {
             }
         });
     }, []);
+
+    const signinHandler = async (values) => {
+        let formData = new FormData();
+        formData.append('email', values.email);
+        formData.append('password', values.password);
+        formData.append('rolle', 'user');
+        formData.append('fcm_token', fcmToken);
+
+        const response = await dispatch(SigninApi({ data: formData })).unwrap();
+        console.log("responseOfLogin ->", response);
+
+        if (response?.status == 'Success') {
+            dispatch(getValues(true));
+            dispatch(saveUser({ ...response.data }));
+            navigation.dispatch(AppStack);
+        }
+    }
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -43,51 +67,72 @@ const SignIn = () => {
                             marginTop: vs(10),
                         }} />
 
-                    <AnimatedInput
-                        placeholder={'Your Email'}
-                        containerStyle={{
-                            backgroundColor: "white",
-                            borderColor: colors.Gray_Border,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            width: '100%'
-                        }}
-                        keyboardType="email-address"
-                        autoCapitalize='none'
-                        height={52}
-                        mpContainer={{ mt: 15 }}
-                        mpInput={{ ph: 10 }}
-                        inputStyle={{ color: colors.black }}
-                        textSize={14}
-                    />
+                    <Formik
+                        initialValues={loginValidate.initialState}
+                        validationSchema={loginValidate.schema}
+                        onSubmit={(values) => signinHandler(values)}
+                    >
+                        {({ values, setFieldTouched, handleChange, handleSubmit, errors, touched }) => (
+                            <>
+                                <AnimatedInput
+                                    placeholder={'Email'}
+                                    value={values.email}
+                                    onChangeText={handleChange("email")}
+                                    onBlur={() => setFieldTouched('email')}
+                                    touched={touched.email}
+                                    errors={errors.email}
+                                    inputStyle={{ color: colors.black }}
+                                    containerStyle={{
+                                        backgroundColor: "white",
+                                        borderColor: touched.email && errors.email ? 'red' : colors.Gray_Border,
+                                        borderWidth: 1,
+                                        borderRadius: 4,
+                                        width: '100%'
+                                    }}
+                                    keyboardType='email-address'
+                                    autoCapitalize='none'
+                                    height={52}
+                                    mpContainer={{ mt: 15 }}
+                                    mpInput={{ ph: 10 }}
+                                    textSize={14}
+                                />
 
-                    <AnimatedInput
-                        placeholder={'Password'}
-                        containerStyle={{
-                            backgroundColor: "white",
-                            borderColor: colors.Gray_Border,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            width: '100%'
-                        }}
-                        autoCapitalize='none'
-                        height={52}
-                        mpContainer={{ mt: 15 }}
-                        mpInput={{ ph: 10 }}
-                        inputStyle={{ color: colors.black }}
-                        textSize={14}
-                        rightIcon={() => <Ionicons name={!isPasswordVisible ? 'eye-off' : 'eye'} size={20} color={colors.Gray_Border} style={{ position: 'absolute', top: 15, right: 10 }}
-                            onPress={() => {
-                                setIsPasswordVisible((prev) => !prev);
-                            }}
-                        />}
-                        secureTextEntry={!isPasswordVisible}
-                    />
+                                <AnimatedInput
+                                    placeholder={'Password'}
+                                    value={values.password}
+                                    onChangeText={handleChange("password")}
+                                    onBlur={() => setFieldTouched('password')}
+                                    touched={touched.password}
+                                    errors={errors.password}
+                                    inputStyle={{ color: colors.black }}
+                                    containerStyle={{
+                                        backgroundColor: "white",
+                                        borderColor: touched.password && errors.password ? 'red' : colors.Gray_Border,
+                                        borderWidth: 1,
+                                        borderRadius: 4,
+                                        width: '100%'
+                                    }}
+                                    autoCapitalize='none'
+                                    height={52}
+                                    mpContainer={{ mt: 15 }}
+                                    mpInput={{ ph: 10 }}
+                                    textSize={14}
+                                    rightIcon={() => <Ionicons name={!isPasswordVisible ? 'eye-off' : 'eye'} size={20} color={colors.Gray_Border} style={{ position: 'absolute', top: 15, right: 10 }}
+                                        onPress={() => {
+                                            setIsPasswordVisible((prev) => !prev);
+                                        }}
+                                    />}
+                                    secureTextEntry={!isPasswordVisible}
+                                />
 
-                    <Btn onPress={() => navigation.dispatch(AppStack)}
-                        title="Sign In"
-                        btnStyle={{ marginTop: vs(25) }}
-                    />
+                                <Btn onPress={handleSubmit}
+                                    title="Sign In"
+                                    btnStyle={{ marginTop: vs(25) }}
+                                />
+                            </>
+                        )}
+                    </Formik>
+
 
                     <Pressable onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={{ alignSelf: 'center', marginTop: vs(20), color: colors.black, fontFamily: fonts.regular, fontSize: fs(18) }}>Forgot Password?</Text>

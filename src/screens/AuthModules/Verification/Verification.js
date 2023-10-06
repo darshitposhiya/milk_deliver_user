@@ -9,11 +9,16 @@ import { fonts } from '../../../assets/fonts';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Btn from '../../../components/Btn';
+import { useDispatch } from 'react-redux';
+import { otpVerifyApi } from '../../../features/authSlice';
 
-const Verification = () => {
+const Verification = ({ route }) => {
 
     const navigation = useNavigation();
     const [value, setValue] = useState('');
+    const dispatch = useDispatch();
+    const { email, otp, password } = route?.params;
+
 
     const CELL_COUNT = 4;
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -34,6 +39,26 @@ const Verification = () => {
             }
         });
     }, []);
+
+    const verificationHandler = async () => {
+
+        let formData = new FormData();
+        formData.append('email', route?.params?.email);
+        formData.append('otp', value);
+        formData.append('type', route?.params?.password);
+
+        console.log(otp,"otp")
+
+        const response = await dispatch(otpVerifyApi({ data: formData })).unwrap();
+        console.log("responseOfOTP", response);
+
+        if (response?.status == "Success") {
+            navigation.navigate('SignIn');
+        }
+        else {
+            console.log("otp error")
+        }
+    }
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView>
@@ -70,7 +95,10 @@ const Verification = () => {
                         <Text style={{ alignSelf: 'center', color: colors.Light_Blue, fontFamily: fonts.bold, fontSize: fs(16), fontWeight: '700' }}>Resend the code</Text>
                     </Pressable>
 
-                    <Btn title="Verify" btnStyle={{ marginTop: vs(30) }} />
+                    <Btn onPress={verificationHandler}
+                        title="Verify"
+                        btnStyle={{ marginTop: vs(30) }}
+                    />
                 </View>
             </KeyboardAwareScrollView>
         </View>

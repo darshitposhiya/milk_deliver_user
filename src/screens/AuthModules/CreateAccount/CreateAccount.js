@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState,useRef,useEffect } from 'react';
+import React, { useLayoutEffect, useState, useRef, useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { colors } from '../../../assets/colors/colors';
 import AnimatedInput from '../../../components/AnimatedInput';
@@ -15,20 +15,22 @@ import { registerValidate } from '../../../utility/Validations';
 import { useDispatch } from 'react-redux';
 import { SignupApi } from '../../../features/authSlice';
 import InputBox from '../../../components/InputBox';
+import { getValues, saveUser } from '../../../features/whiteLists';
 
-const CreateAccount = ({route}) => {
+const CreateAccount = ({ route }) => {
 
   const formRef = useRef();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [otp, setOtp] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isRepeatPasswordVisible, setIsRepeatPasswordVisible] = useState(false);
 
   useEffect(() => {
     if (formRef.current) {
-        formRef.current?.setFieldValue('phone_code', route.params?.countryCode || '');
+      formRef.current?.setFieldValue('phone_code', route.params?.countryCode || '');
     }
-}, [formRef, route.params]);
+  }, [formRef, route.params]);
   const renderHeader = () => {
     return (
       <Header heading="Create an account" onPress={() => navigation.goBack()} />
@@ -54,10 +56,17 @@ const CreateAccount = ({route}) => {
     formData.append('confirmPassword', values.confirmPassword);
 
     const response = await dispatch(SignupApi({ data: formData })).unwrap();
+    console.log('ResponseOfCreateAccount', response);
 
     if (response?.status == "Success") {
-      console.log("it;s done")
-      // navigation.navigate("Verification")
+      dispatch(getValues(true));
+      dispatch(saveUser({ ...response?.data }));
+      setOtp(response?.data?.otp);
+      navigation.navigate("Verification", {
+        otp: otp,
+        email: values.email,
+        password: values.password
+      })
     }
     else {
       console.log("it;s err")
@@ -67,9 +76,9 @@ const CreateAccount = ({route}) => {
 
   const selectCountryHandler = () => {
     navigation.navigate('Country', {
-        fromSignup: true
+      fromSignup: true
     });
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -96,7 +105,7 @@ const CreateAccount = ({route}) => {
                   onBlur={() => setFieldTouched('name')}
                   touched={touched.name}
                   errors={errors.name}
-                  inputStyle={{ color:colors.black }}
+                  inputStyle={{ color: colors.black }}
                   containerStyle={{
                     backgroundColor: "white",
                     borderColor: touched.name && errors.name ? 'red' : colors.Gray_Border,
@@ -118,7 +127,7 @@ const CreateAccount = ({route}) => {
                   onBlur={() => setFieldTouched('email')}
                   touched={touched.email}
                   errors={errors.email}
-                  inputStyle={{ color:colors.black}}
+                  inputStyle={{ color: colors.black }}
                   containerStyle={{
                     backgroundColor: "white",
                     borderColor: touched.email && errors.email ? 'red' : colors.Gray_Border,
@@ -147,14 +156,13 @@ const CreateAccount = ({route}) => {
                         borderColor: touched.phone_code && errors.phone_code ? 'red' : colors.Gray_Border,
                         borderRadius: 5,
                       }}
-                      autoCapitalize='none'
                       editable={false}
                       pointerEvents="box-only"
                       height={52}
                       mpInputContainer={{ ph: 10 }}
                       textSize={14}
                       onPress={selectCountryHandler}
-                      rightIcon={()=><Ionicons name='caret-down-outline' size={15} style={{ right: 5 }} color={"#000"} />}
+                      rightIcon={() => <Ionicons name='caret-down-outline' size={15} style={{ right: 5 }} color={"#000"} />}
                     />
                   </View>
 
@@ -175,7 +183,6 @@ const CreateAccount = ({route}) => {
                         width: '100%'
                       }}
                       keyboardType="phone-pad"
-                      autoCapitalize='none'
                       height={52}
                       mpInput={{ ph: 10 }}
                       textSize={14}
@@ -218,7 +225,7 @@ const CreateAccount = ({route}) => {
                   onBlur={() => setFieldTouched('confirmPassword')}
                   touched={touched.confirmPassword}
                   errors={errors.confirmPassword}
-                  inputStyle={{ color:colors.black }}
+                  inputStyle={{ color: colors.black }}
                   containerStyle={{
                     backgroundColor: "white",
                     borderColor: touched.confirmPassword && errors.confirmPassword ? 'red' : colors.Gray_Border,

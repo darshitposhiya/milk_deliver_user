@@ -16,7 +16,7 @@ export const googleLoginApi = ApiPostRequest({
 })
 
 export const forgotPasswordApi = ApiPostRequest({
-    endPoints: endPoints.forget_passwordt_password,
+    endPoints: endPoints.forget_password,
 })
 
 export const resetPasswordApi = ApiPostRequest({

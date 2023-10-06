@@ -1,9 +1,9 @@
 import * as yup from 'yup';
 
 export const loginValidate = {
-    initialState: { username: '', password: '', rolle: '' },
+    initialState: { email: '', password: '', rolle: '' },
     schema: yup.object().shape({
-        username: yup
+        email: yup
             .string()
             .email("Email must be a valid email")
             .required("Email is must be required"),
