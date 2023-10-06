@@ -10,6 +10,7 @@ import AnimatedInput from '../../../components/AnimatedInput';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Btn from '../../../components/Btn';
 import { fonts } from '../../../assets/fonts';
+import { AppStack } from '../../../navigator/NavActions';
 
 const SignIn = () => {
 
@@ -31,7 +32,7 @@ const SignIn = () => {
     return (
         <View style={styles.container}>
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ marginHorizontal: hs(15),marginBottom:vs(20) }}>
+                <View style={{ marginHorizontal: hs(15), marginBottom: vs(20) }}>
 
                     <Image source={images.app_logo}
                         style={{
@@ -51,7 +52,7 @@ const SignIn = () => {
                             borderRadius: 4,
                             width: '100%'
                         }}
-                        keyboardType={'email-address'}
+                        keyboardType="email-address"
                         autoCapitalize='none'
                         height={52}
                         mpContainer={{ mt: 15 }}
@@ -83,7 +84,10 @@ const SignIn = () => {
                         secureTextEntry={!isPasswordVisible}
                     />
 
-                    <Btn title="Sign In" btnStyle={{ marginTop: vs(25) }} />
+                    <Btn onPress={() => navigation.dispatch(AppStack)}
+                        title="Sign In"
+                        btnStyle={{ marginTop: vs(25) }}
+                    />
 
                     <Pressable onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={{ alignSelf: 'center', marginTop: vs(20), color: colors.black, fontFamily: fonts.regular, fontSize: fs(18) }}>Forgot Password?</Text>

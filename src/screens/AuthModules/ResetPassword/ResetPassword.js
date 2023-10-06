@@ -90,7 +90,10 @@ const ResetPassword = () => {
                         secureTextEntry={!isConfirmPasswordVisible}
                     />
 
-                    <Btn onPress={() => navigation.dispatch(AppStack)} title="Reset Password" btnStyle={{ marginTop: vs(25) }} />
+                    <Btn onPress={() => navigation.navigate('SignIn')}
+                        title="Reset Password"
+                        btnStyle={{ marginTop: vs(25) }}
+                    />
 
                 </View>
             </KeyboardAwareScrollView>

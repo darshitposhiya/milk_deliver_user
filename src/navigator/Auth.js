@@ -9,6 +9,7 @@ import Verification from '../screens/AuthModules/Verification/Verification';
 import SignIn from '../screens/AuthModules/SignIn/SignIn';
 import ForgotPassword from '../screens/AuthModules/ForgotPassword/ForgotPassword';
 import ResetPassword from '../screens/AuthModules/ResetPassword/ResetPassword';
+import Country from '../screens/AuthModules/Country/Country';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = () => {
@@ -44,6 +45,16 @@ const AuthStack = () => {
                 component={CreateAccount}
                 options={{
                     headerShown: true,
+                    headerShadowVisible: false,
+                    headerTitle: '',
+                }}
+            />
+
+            <Stack.Screen
+                name='Country'
+                component={Country}
+                options={{
+                    headerShown: false,
                     headerShadowVisible: false,
                     headerTitle: '',
                 }}

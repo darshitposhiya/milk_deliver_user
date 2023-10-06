@@ -42,7 +42,7 @@ const Address = () => {
                             </Pressable>)
                     }
 
-                    <Text style={{ marginHorizontal: hs(10), flex: 1, fontSize: fs(14), color: colors.black, fontFamily: fonts.regular, textAlign: 'left' }}>490 Lauren Drive, Madition, Wiscosin, United States.</Text>
+                    <Text style={{ marginLeft: hs(10),marginRight:hs(5), flex: 1, fontSize: fs(14), color: colors.black, fontFamily: fonts.regular, textAlign: 'left' }}>490 Lauren Drive, Madition, Wiscosin, United States.</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Pressable style={{ marginHorizontal: hs(10) }}>

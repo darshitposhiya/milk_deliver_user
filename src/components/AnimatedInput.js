@@ -17,6 +17,7 @@ const AnimatedInput = (
         rightIcon,
         onBlur,
         onFocus,
+        onChangeText = () => { },
         mpErrorStyle,
         touched,
         errors,
@@ -65,6 +66,7 @@ const AnimatedInput = (
                 {leftIcon && leftIcon()}
                 <TextInput
                     ref={textInputRef}
+                    onChangeText={onChangeText}
                     placeholder=''
                     style={[{
                         padding: 0,
@@ -112,8 +114,8 @@ const AnimatedInput = (
                 >
                     <Text
                         style={{
-                            fontSize: fs(12),
-                            marginTop: vs(10),
+                            fontSize: fs(10),
+                            marginTop: vs(5),
                             color: 'red',
                             fontFamily: fonts.regular || ''
                         }}

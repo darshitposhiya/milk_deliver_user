@@ -26,7 +26,7 @@ const MySubscriptions = () => {
 
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: vs(20), marginHorizontal: hs(15), backgroundColor: colors.white, borderWidth: 1, borderColor: colors.Gray_Border, borderRadius: 5 }}>
+            <View style={{ marginTop: vs(20), marginHorizontal: hs(15), backgroundColor: colors.white, borderRadius: 5 }}>
                 <View style={{ padding: 10, }}>
                     <Text style={{ fontSize: fs(16), color: colors.black, fontFamily: fonts.bold, }}>Subscription : <Text style={{ fontSize: fs(16), color: colors.black, fontFamily: fonts.bold, fontWeight: '700' }}>Daily</Text></Text>
                 </View>

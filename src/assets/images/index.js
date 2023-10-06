@@ -4,6 +4,7 @@ export const images = {
     intro1: require("../images/2-3-4-intro/1.png"),
     intro2: require("../images/2-3-4-intro/2.png"),
     intro3: require("../images/2-3-4-intro/3.png"),
+    camera:require("../images/6-create-ac/camera.png"),
     back_icon: require("../images/7-8-9-terms-verification/back.png"),
     apple_icon: require("../images/10-login/apple.png"),
     facebook_icon: require("../images/10-login/facebook.png"),

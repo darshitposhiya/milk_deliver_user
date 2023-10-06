@@ -57,10 +57,11 @@ const Help = () => {
                     <View style={{ marginTop: vs(5), flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
                         <Btn title="File name"
                             btnStyle={{ width: '63%', borderRadius: 5, justifyContent: 'flex-start', backgroundColor: colors.Light_Gray }}
-                            btnTextStyle={{ color: colors.Gray_text, paddingHorizontal: hs(10), fontSize: fs(16) }}
+                            btnTextStyle={{ color: colors.Gray_text, paddingLeft: hs(12), paddingRight: hs(5), fontSize: fs(16) }}
                         />
                         <Btn title="Upload"
                             btnStyle={{ width: '35%', backgroundColor: colors.Green, borderRadius: 5 }}
+                            btnTextStyle={{ fontSize: fs(18) }}
                         />
                     </View>
                 </View>
@@ -78,7 +79,7 @@ const Help = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:colors.white
+        backgroundColor: colors.white
     },
 });
 

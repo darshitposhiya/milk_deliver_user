@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState,useRef,useEffect } from 'react';
 import { StyleSheet, View, Text, Pressable, Image } from 'react-native';
 import { colors } from '../../../assets/colors/colors';
 import AnimatedInput from '../../../components/AnimatedInput';
@@ -9,13 +9,26 @@ import { fs, hs, vs } from '../../../utility/ResponsiveStyle';
 import Btn from '../../../components/Btn';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { fonts } from '../../../assets/fonts';
+import { images } from '../../../assets/images';
+import { Formik } from 'formik';
+import { registerValidate } from '../../../utility/Validations';
+import { useDispatch } from 'react-redux';
+import { SignupApi } from '../../../features/authSlice';
+import InputBox from '../../../components/InputBox';
 
-const CreateAccount = () => {
+const CreateAccount = ({route}) => {
 
+  const formRef = useRef();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isRepeatPasswordVisible, setIsRepeatPasswordVisible] = useState(false);
 
+  useEffect(() => {
+    if (formRef.current) {
+        formRef.current?.setFieldValue('phone_code', route.params?.countryCode || '');
+    }
+}, [formRef, route.params]);
   const renderHeader = () => {
     return (
       <Header heading="Create an account" onPress={() => navigation.goBack()} />
@@ -30,96 +43,209 @@ const CreateAccount = () => {
     });
   }, []);
 
+  const signupHandler = async (values) => {
+
+    let formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('email', values.email);
+    formData.append('country_code', route?.params?.phone_code);
+    formData.append('phone_no', values.phone);
+    formData.append('password', values.password);
+    formData.append('confirmPassword', values.confirmPassword);
+
+    const response = await dispatch(SignupApi({ data: formData })).unwrap();
+
+    if (response?.status == "Success") {
+      console.log("it;s done")
+      // navigation.navigate("Verification")
+    }
+    else {
+      console.log("it;s err")
+      //  Toast.show(response?.message, Toast.SHORT)
+    }
+  };
+
+  const selectCountryHandler = () => {
+    navigation.navigate('Country', {
+        fromSignup: true
+    });
+};
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView>
-        <View style={{ marginHorizontal: hs(15) }}>
-          <AnimatedInput
-            placeholder={'Name'}
-            containerStyle={{
-              backgroundColor: "white",
-              borderColor: colors.Gray_Border,
-              borderWidth: 1,
-              borderRadius: 4,
-              width: '100%'
-            }}
-            autoCapitalize='none'
-            height={52}
-            mpContainer={{ mt: 20 }}
-            mpInput={{ ph: 10 }}
-            inputStyle={{ color: colors.black }}
-            textSize={14}
-          />
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={{ marginBottom: vs(20) }}>
+        <View style={{ marginHorizontal: hs(15), marginTop: vs(20) }}>
 
-          <AnimatedInput
-            placeholder={'Email'}
-            containerStyle={{
-              backgroundColor: "white",
-              borderColor: colors.Gray_Border,
-              borderWidth: 1,
-              borderRadius: 4,
-              width: '100%'
-            }}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            height={52}
-            mpContainer={{ mt: 15 }}
-            mpInput={{ ph: 10 }}
-            inputStyle={{ color: colors.black }}
-            textSize={14}
-          />
+          <Pressable>
+            <Image source={images.camera}
+              style={{ height: vs(80), width: hs(80), resizeMode: 'contain', alignSelf: 'center' }} />
+          </Pressable>
 
-          <AnimatedInput
-            placeholder={'Password'}
-            containerStyle={{
-              backgroundColor: "white",
-              borderColor: colors.Gray_Border,
-              borderWidth: 1,
-              borderRadius: 4,
-              width: '100%'
-            }}
-            autoCapitalize='none'
-            height={52}
-            mpContainer={{ mt: 15 }}
-            mpInput={{ ph: 10 }}
-            inputStyle={{ color: colors.black }}
-            textSize={14}
-            rightIcon={() => <Ionicons name={!isPasswordVisible ? 'eye-off' : 'eye'} size={20} color={colors.Gray_Border} style={{ position: 'absolute', top: 15, right: 10 }}
-              onPress={() => {
-                setIsPasswordVisible((prev) => !prev);
-              }}
-            />}
-            secureTextEntry={!isPasswordVisible}
-          />
+          <Formik
+            initialValues={registerValidate.initialState}
+            validationSchema={registerValidate.schema}
+            onSubmit={(values) => signupHandler(values)}
+            innerRef={formRef}
+          >
+            {({ values, setFieldTouched, handleChange, handleSubmit, errors, touched }) => (
+              <>
+                <AnimatedInput
+                  placeholder={'Name'}
+                  value={values.name}
+                  onChangeText={handleChange("name")}
+                  onBlur={() => setFieldTouched('name')}
+                  touched={touched.name}
+                  errors={errors.name}
+                  inputStyle={{ color:colors.black }}
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: touched.name && errors.name ? 'red' : colors.Gray_Border,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    width: '100%'
+                  }}
+                  autoCapitalize='none'
+                  height={52}
+                  mpContainer={{ mt: 15 }}
+                  mpInput={{ ph: 10 }}
+                  textSize={14}
+                />
 
-          <AnimatedInput
-            placeholder={'Repeat password'}
-            containerStyle={{
-              backgroundColor: "white",
-              borderColor: colors.Gray_Border,
-              borderWidth: 1,
-              borderRadius: 4,
-              width: '100%'
-            }}
-            autoCapitalize='none'
-            height={52}
-            mpContainer={{ mt: 15 }}
-            mpInput={{ ph: 10 }}
-            inputStyle={{ color: colors.black }}
-            textSize={14}
-            rightIcon={() => <Ionicons name={!isRepeatPasswordVisible ? 'eye-off' : 'eye'} size={20} color={colors.Gray_Border} style={{ position: 'absolute', top: 15, right: 10 }}
-              onPress={() => {
-                setIsRepeatPasswordVisible((prev) => !prev);
-              }}
-            />}
-            secureTextEntry={!isRepeatPasswordVisible}
-          />
+                <AnimatedInput
+                  placeholder={'Email'}
+                  value={values.email}
+                  onChangeText={handleChange("email")}
+                  onBlur={() => setFieldTouched('email')}
+                  touched={touched.email}
+                  errors={errors.email}
+                  inputStyle={{ color:colors.black}}
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: touched.email && errors.email ? 'red' : colors.Gray_Border,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    width: '100%'
+                  }}
+                  keyboardType='email-address'
+                  autoCapitalize='none'
+                  height={52}
+                  mpContainer={{ mt: 15 }}
+                  mpInput={{ ph: 10 }}
+                  textSize={14}
+                />
 
-          <Btn onPress={() => navigation.navigate('Verification')}
-            title="Create an account"
-            btnStyle={{ marginTop: vs(25) }}
-          />
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: vs(15) }}>
+                  <View style={{ width: '25%' }}>
+                    <InputBox
+                      placeholder={'+27'}
+                      value={values.phone_code}
+                      onChangeText={handleChange("phone_code")}
+                      onBlur={() => setFieldTouched('phone_code')}
+                      touched={touched.phone_code}
+                      errors={errors.phone_code}
+                      containerStyle={{
+                        borderColor: touched.phone_code && errors.phone_code ? 'red' : colors.Gray_Border,
+                        borderRadius: 5,
+                      }}
+                      autoCapitalize='none'
+                      editable={false}
+                      pointerEvents="box-only"
+                      height={52}
+                      mpInputContainer={{ ph: 10 }}
+                      textSize={14}
+                      onPress={selectCountryHandler}
+                      rightIcon={()=><Ionicons name='caret-down-outline' size={15} style={{ right: 5 }} color={"#000"} />}
+                    />
+                  </View>
+
+                  <View style={{ width: '73%' }}>
+                    <AnimatedInput
+                      placeholder={'phone number'}
+                      value={values.phone}
+                      onChangeText={handleChange("phone")}
+                      onBlur={() => setFieldTouched('phone')}
+                      touched={touched.phone}
+                      errors={errors.phone}
+                      inputStyle={{ color: colors.black }}
+                      containerStyle={{
+                        backgroundColor: "white",
+                        borderColor: touched.phone && errors.phone ? 'red' : colors.Gray_Border,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        width: '100%'
+                      }}
+                      keyboardType="phone-pad"
+                      autoCapitalize='none'
+                      height={52}
+                      mpInput={{ ph: 10 }}
+                      textSize={14}
+                    />
+                  </View>
+                </View>
+
+                <AnimatedInput
+                  placeholder={'Password'}
+                  value={values.password}
+                  onChangeText={handleChange("password")}
+                  onBlur={() => setFieldTouched('password')}
+                  touched={touched.password}
+                  errors={errors.password}
+                  inputStyle={{ color: colors.black }}
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: touched.password && errors.password ? 'red' : colors.Gray_Border,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    width: '100%'
+                  }}
+                  autoCapitalize='none'
+                  height={52}
+                  mpContainer={{ mt: 15 }}
+                  mpInput={{ ph: 10 }}
+                  textSize={14}
+                  rightIcon={() => <Ionicons name={!isPasswordVisible ? 'eye-off' : 'eye'} size={20} color={colors.Gray_Border} style={{ position: 'absolute', top: 15, right: 10 }}
+                    onPress={() => {
+                      setIsPasswordVisible((prev) => !prev);
+                    }}
+                  />}
+                  secureTextEntry={!isPasswordVisible}
+                />
+
+                <AnimatedInput
+                  placeholder={'Repeat password'}
+                  value={values.confirmPassword}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={() => setFieldTouched('confirmPassword')}
+                  touched={touched.confirmPassword}
+                  errors={errors.confirmPassword}
+                  inputStyle={{ color:colors.black }}
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: touched.confirmPassword && errors.confirmPassword ? 'red' : colors.Gray_Border,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    width: '100%'
+                  }}
+                  autoCapitalize='none'
+                  height={52}
+                  mpContainer={{ mt: 15 }}
+                  mpInput={{ ph: 10 }}
+                  textSize={14}
+                  rightIcon={() => <Ionicons name={!isRepeatPasswordVisible ? 'eye-off' : 'eye'} size={20} color={colors.Gray_Border} style={{ position: 'absolute', top: 15, right: 10 }}
+                    onPress={() => {
+                      setIsRepeatPasswordVisible((prev) => !prev);
+                    }}
+                  />}
+                  secureTextEntry={!isRepeatPasswordVisible}
+                />
+
+                <Btn onPress={handleSubmit}
+                  title="Create an account"
+                  btnStyle={{ marginTop: vs(25) }}
+                />
+              </>
+            )}
+          </Formik>
 
           <View style={{ marginTop: vs(15), flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
             <Text style={{ fontSize: fs(16), fontFamily: fonts.regular, color: colors.Gray_text, }}>By setting up you agree to our</Text>

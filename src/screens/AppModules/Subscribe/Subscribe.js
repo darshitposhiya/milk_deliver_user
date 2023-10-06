@@ -71,12 +71,12 @@ const Subscribe = () => {
                     <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.Gray_Border, borderRadius: 5, padding: 5 }}>
                         <Pressable>
                             <Image source={images.minus}
-                                style={{ height: vs(10), width: hs(10), resizeMode: 'contain' }} />
+                                style={{ height: vs(15), width: hs(15), resizeMode: 'contain' }} />
                         </Pressable>
-                        <Text style={{ marginHorizontal: hs(10), fontSize: fs(16), color: colors.black, fontFamily: fonts.regular }}>1</Text>
+                        <Text style={{ marginHorizontal: hs(15), fontSize: fs(16), color: colors.black, fontFamily: fonts.regular }}>1</Text>
                         <Pressable>
                             <Image source={images.plus}
-                                style={{ height: vs(10), width: hs(10), resizeMode: 'contain' }} />
+                                style={{ height: vs(15), width: hs(15), resizeMode: 'contain' }} />
                         </Pressable>
                     </View>
                 </View>

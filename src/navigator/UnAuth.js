@@ -21,6 +21,8 @@ import Help from '../screens/AppModules/Help/Help';
 import SearchScreen from '../screens/AppModules/SearchScreen/SearchScreen';
 import BuyAgain from '../screens/AppModules/BuyAgain/BuyAgain';
 import TrackOrder from '../screens/AppModules/TrackOrder/TrackOrder';
+import AddNewCard from '../screens/AppModules/AddNewCard/AddNewCard';
+import RatingAndReview from '../screens/AppModules/RatingAndReview/RatingAndReview';
 
 const RootStack = createNativeStackNavigator();
 
@@ -98,6 +100,16 @@ const AppStack = () => {
             />
 
             <RootStack.Screen
+                name='AddNewCard'
+                component={AddNewCard}
+                options={{
+                    headerShown: true,
+                    headerShadowVisible: false,
+                    headerTitle: '',
+                }}
+            />
+
+            <RootStack.Screen
                 name='Checkout'
                 component={Checkout}
                 options={{
@@ -159,6 +171,16 @@ const AppStack = () => {
             <RootStack.Screen
                 name='TrackOrder'
                 component={TrackOrder}
+                options={{
+                    headerShown: true,
+                    headerShadowVisible: false,
+                    headerTitle: '',
+                }}
+            />
+
+            <RootStack.Screen
+                name='RatingAndReview'
+                component={RatingAndReview}
                 options={{
                     headerShown: true,
                     headerShadowVisible: false,

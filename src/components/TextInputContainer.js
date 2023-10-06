@@ -10,8 +10,9 @@ const TextInputContainer = (
         placeholder,
         containerStyle,
         inputStyle,
-        rightIcon
-
+        rightIcon,
+        onChangeText = () => { },
+        ...props
     }
 ) => {
     return (
@@ -19,7 +20,10 @@ const TextInputContainer = (
             <TextInput
                 placeholder={placeholder}
                 placeholderTextColor={colors.Gray_text}
-                style={{ ...styles.inputStyle, ...inputStyle }} />
+                style={{ ...styles.inputStyle, ...inputStyle }} 
+                onChangeText={onChangeText}
+                {...props}
+                />
            
                 {rightIcon && rightIcon()}
         </View>

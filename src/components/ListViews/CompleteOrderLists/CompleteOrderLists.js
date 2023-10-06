@@ -40,7 +40,7 @@ const CompleteOrderLists = (
                     <Text style={{ fontSize: fs(14), color: colors.black, fontFamily: fonts.bold, fontWeight: '700' }}>{productName}</Text>
                     <Text style={{ marginTop: vs(5), fontSize: fs(14), color: colors.black, fontFamily: fonts.regular }}>{productPrice}</Text>
 
-                    <Pressable onPress={() => setModalVisible(true)}
+                    <Pressable onPress={() => navigation.navigate('RatingAndReview')}
                         style={{ flexDirection: 'row', marginTop: vs(5), alignItems: 'center' }}>
                         <Image source={images.yellowStar} style={{ height: vs(14), width: hs(14), resizeMode: 'contain', }} />
                         <Image source={images.yellowStar} style={{ height: vs(14), width: hs(14), resizeMode: 'contain', marginLeft: hs(5) }} />
@@ -51,7 +51,7 @@ const CompleteOrderLists = (
                     
                     <Btn onPress={() => navigation.navigate('BuyAgain')}
                         title="Buy again"
-                        btnStyle={{ height: vs(30), marginTop: vs(10), marginBottom: vs(5) }}
+                        btnStyle={{ height: vs(30), marginTop: vs(10), marginBottom: vs(10) }}
                         btnTextStyle={{ fontSize: fs(14) }}
                     />
                 </View>
@@ -59,7 +59,7 @@ const CompleteOrderLists = (
 
             {/* ---------modal---------------------------------- */}
 
-            <Modal isVisible={isModalVisible} >
+            {/* <Modal isVisible={isModalVisible} >
                 <View>
                     <Image source={images.useImage}
                         style={{ height: vs(70), width: hs(70), resizeMode: 'contain', alignSelf: 'center', zIndex: 100 }} />
@@ -90,7 +90,7 @@ const CompleteOrderLists = (
                         btnStyle={{ marginTop: vs(20) }}
                     />
                 </View>
-            </Modal>
+            </Modal> */}
             {/* ------Close----modal---------------------------------- */}
 
         </View>
